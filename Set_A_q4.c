@@ -1,25 +1,42 @@
 #include <stdio.h>
+#include <string.h>
 
-struct Person {
-   char name[50];
-   int age;
-   float salary;
+union StudentData {
+    char name[20];
+    char subject[20];
+    float percentage;
 };
 
-void copy(struct Person *dest, struct Person *src) {
-   *dest = *src;  
+void store_student_data(union StudentData *student, char *name, char *subject, float percentage) {
+    strcpy(student->name, name); // Use strcpy for safer name assignment
+    strcpy(student->subject, subject); // Use strcpy for safer subject assignment
+    student->percentage = percentage;
+}
+
+void access_student_data(union StudentData *student) {
+    printf("Student Details:\n");
+    printf("Name: %s\n", student->name);
+    printf("Subject: %s\n", student->subject);
+    printf("Percentage: %.2f\n", student->percentage);
 }
 
 int main() {
-   struct Person person1 = {"Akshat",30,50000.0};
-   struct Person person2;
+    union StudentData student;
+    char name[20], subject[20];
 
-   copy(&person2, &person1);
+    printf("Enter student details:\n");
+    printf("Name: ");
+    scanf(" %[^\n]", name); // Read name with spaces
 
-   printf("Person 2 details:\n");
-   printf("Name: %s\n", person2.name);
-   printf("Age: %d\n", person2.age);
-   printf("Salary: %.2f\n", person2.salary);
+    printf("Subject: ");
+    scanf(" %[^\n]", subject); // Read subject with spaces
 
-   return 0;
+    printf("Percentage: ");
+    scanf("%f", &student.percentage); // Access percentage directly
+
+    store_student_data(&student, name, subject, student.percentage); // Pass address and copy data
+
+    access_student_data(&student);
+
+    return 0;
 }

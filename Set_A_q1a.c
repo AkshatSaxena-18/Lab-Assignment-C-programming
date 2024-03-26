@@ -12,14 +12,6 @@ struct employee {
     struct address address; // Nested structure as member variable
 };
 
-void display_employee(struct employee *emp) {
-    printf("\nEmployee Information:\n");
-    printf("Name: %s\n", emp->name);
-    printf("Age: %d\n", emp->age);
-    printf("Salary: %.2f\n", emp->salary);
-    printf("Address: %d, %s\n", emp->address.house_number, emp->address.street);
-}
-
 int main() {
     struct employee emp;
 
@@ -40,7 +32,11 @@ int main() {
     printf("Street: ");
     scanf(" %[^\n]", emp.address.street); // Read street with spaces
 
-    display_employee(&emp); // Pass the address of emp
+    printf("\nEmployee Information:\n");
+    printf("Name: %s\n", emp.name);
+    printf("Age: %d\n", emp.age);
+    printf("Salary: %.2f\n", emp.salary);
+    printf("Address: %d, %s\n", emp.address.house_number, emp.address.street);
 
     return 0;
 }
