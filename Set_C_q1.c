@@ -1,28 +1,74 @@
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+struct Book
+{
 
-int main() {
-   char word[50], string[100];
+    int bid;
+    char bname[20];
+    int price;
+    char author[20];
 
-   printf("Enter a word to remove: ");
-   fgets(word, sizeof(word), stdin);
-   word[strcspn(word, "\n")] = '\0';  // Remove trailing newline
+}b[10];
+void main()
+{
 
-   printf("Enter a string: ");
-   fgets(string, sizeof(string), stdin);
-   string[strcspn(string, "\n")] = '\0';  // Remove trailing newline
+    int i,n=0,flag=0;
+    char ch,aname[20];
+    do
+    {
+        printf("\nMenu");
+        printf("\n1. Add book information: ");
+        printf("\n2. Display book information");
+        printf("\n3. List all books of given author");
+        printf("\n4. Exit");
+        printf("\nEnter your choice :");
+        scanf("%d",&ch);
+        switch(ch)
+            {
+                case 1:
+                    printf("\nEnter Book id : ");
+                    scanf("%d",&b[n].bid);
+                    printf("\nEnter Book Name : ");
+                    scanf("%s",b[n].bname);
+                    printf("\nEnter Book author : ");
+                    scanf("%s",b[n].author);
+                    printf("\nEnter Book price : ");
+                    n++;
+                    break;
+                case 2:
+                    printf("\nAll book information");
+                    for(i=0;i<n;i++)
+                    {
+                    printf("\n\nBook id : %d",b[i].bid);
+                    printf("\nBook Name : %s",b[i].bname);
+                    printf("\nBook author : %s",b[i].author);
+                    printf("\nBook price : %d",b[i].price);
+                    }
+                    break;
+                case 3:
+                    printf("\nEnter author name : ");
+                    scanf("%s",aname);
 
-   char *pos = strstr(string, word); // Find first occurrence of word
+                    printf("\nBooks of given author : ");
+                    for(i=0;i<n;i++)
+                    {
+                    if(strcmp(b[i].author,aname)==0)
+                    {
+                    flag=1;
+                    printf("\n\nBook id: %d",b[i].bid);
+                    printf("\nBook Name: %s",b[i].bname);
+                    printf("\nBook author: %s",b[i].author);
+                    printf("\nBook price: %d",b[i].price);
+                    }
+                    }
+                    if(flag==0)
+                    printf("\nNo book available for given author");
+                    break;
+                    case 4:
+                    exit(0);
 
-   if (pos != NULL) {
-       // Shift characters to overwrite the word
-       int word_len = strlen(word);
-       memmove(pos, pos + word_len, strlen(pos + word_len) + 1);
+                    }
+                    }while (ch!=4);
 
-       printf("Modified string: %s\n", string);
-   } else {
-       printf("Word '%s' not found in the string.\n", word);
-   }
-
-   return 0;
 }
